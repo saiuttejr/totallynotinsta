@@ -7,6 +7,16 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const admin = require('firebase-admin');
+
+// Initialize Firebase Admin SDK
+const serviceAccount = require('/Users/saiut/Desktop/Haccnt/emailalert/email-alert-fa273-firebase-adminsdk-l0w3x-85994a44d4.json');
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+});
+
+
+
 // Set up body-parser middleware to parse JSON data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -58,6 +68,23 @@ app.post('/register', async (req, res) => {
 
     return res.status(201).json(newUser);
 });
+
+app.post('/subscribe', async (req, res) => {
+    const { email, preferences } = req.body;
+
+    try {
+        // Add a new document to the 'subscriptions' collection
+        await admin.firestore().collection('subscriptions').doc(email).set({ preferences });
+
+        // Respond with success message
+        res.status(201).json({ message: 'Subscription successful' });
+    } catch (error) {
+        // Handle errors
+        console.error('Error subscribing user:', error);
+        res.status(500).json({ error: 'Failed to subscribe user' });
+    }
+});
+
 
 // Start the server
 app.listen(PORT, () => {

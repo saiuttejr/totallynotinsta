@@ -49,7 +49,7 @@ app.post('/register', async (req, res) => {
         await client.messages.create({
             from: 'whatsapp:' + process.env.TWILIO_PHONE_NUMBER, // Your Twilio WhatsApp number
             to: 'whatsapp:' + phone, // Use the user's phone number
-            body: `Dear user,gudha dengichko ${email} and phone number: ${phone}.`
+            body: `Dear user, you have successfully registered with email: ${email} and phone number: ${phone}.`
         });
         console.log('WhatsApp message sent successfully');
     } catch (error) {

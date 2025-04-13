@@ -1,6 +1,6 @@
 # TotallyNotInsta
 
-This is a parody Instagram application built using Laravel and MongoDB.
+This is a parody Instagram-clone application built using Laravel and MongoDB.
 
 ## Overview
 

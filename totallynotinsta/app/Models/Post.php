@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use MongoDB\Laravel\Eloquent\Model;
+use MongoDB\Laravel\Relations\BelongsTo;
 
 class Post extends Model
 {
-    protected $connection='mongodb';
-    protected $table='posts';
-    
+    protected $connection = 'mongodb';
+    protected $table = 'posts';
+
     protected $fillable = [
         'caption',
         'image_path',
@@ -16,18 +17,18 @@ class Post extends Model
         'user_id',
     ];
 
-    public function user(): BelongsTo
+    public function user()
     {
-        return $this->belongsTo(related: User::class);
+        return $this->belongsTo(User::class);
     }
 
-    public function comments(): HasMany
+    public function comments()
     {
-        return $this->hasMany(related: Comment::class);
+        return $this->hasMany(Comment::class);
     }
 
-    public function likes(): HasMany
+    public function likes()
     {
-        return $this->hasMany(related: Like::class);
+        return $this->hasMany(Like::class);
     }
 }

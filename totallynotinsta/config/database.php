@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'sqlite'),
+    'default' => env('DB_CONNECTION', 'mongodb'),
 
     /*
     |--------------------------------------------------------------------------
@@ -30,17 +30,11 @@ return [
     */
 
     'connections' => [
-
         'mongodb' => [
             'driver' => 'mongodb',
-            'url' => env('DB_URL'),
-            'database' => env('DB_DATABASE', 'laravel'),
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '27017'),
-            'username' => env('DB_USERNAME'),
-            'password' => env('DB_PASSWORD'),
+            'dsn' => env('DB_URI'),
+            'database' => env('DB_DATABASE', 'instagram-clone'),
         ],
-
         'sqlite' => [
             'driver' => 'sqlite',
             'url' => env('DB_URL'),

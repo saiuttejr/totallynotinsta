@@ -1,66 +1,187 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# TotallyNotInsta
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## About Laravel
+TotallyNotInsta is an Instagram-parody clone application, created as a parody using Laravel and MongoDB. It replicates familiar features like user profiles, photo sharing, following capabilities, and post liking. This project demonstrates the integration of Laravel as a backend framework with MongoDB as a NoSQL database. A special thanks to <b>freeCodeCamp.</b> 🙇‍♂️
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Overview
+This is an Instagram-parody clone application by,
+**Developer** - <a>Sai Uttej R</a>
+<!-- Optional: Add a screenshot or GIF here -->
+<!-- ![Screenshot](link/to/your/screenshot.png) -->
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Tech Stack
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+*   **Backend Framework:** Laravel 12.x
+*   **Database:** MongoDB (via `jenssegers/mongodb` and `mongodb/laravel-mongodb` packages)
+*   **Frontend:** Blade templates with Bootstrap 5 for styling
+*   **Package Manager:** Composer (PHP) and npm (JavaScript)
+*   **Build Tool:** Vite
+*   **Testing Framework:** PHPUnit
+*   **Environment Management:** `.env` file for configuration
+*   **Version Control:** Git
 
-## Learning Laravel
+## Features
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+*   **User Registration and Authentication:**
+    *   Users can register, log in, and log out.
+    *   Authentication is handled using Laravel's built-in authentication system.
+*   **User Profiles:**
+    *   Users can create and edit their profiles, including uploading profile pictures and adding a bio.
+*   **Photo Uploads and Sharing:**
+    *   Users can upload photos with captions.
+    *   Photos are stored in the `storage` directory and served via symbolic links.
+*   **Following/Followers System:**
+    *   Users can follow and unfollow other users.
+    *   A feed displays posts from followed users.
+*   **Likes and Comments:**
+    *   Users can like posts and leave comments.
+*   **Responsive Design:**
+    *   The application is styled using Bootstrap 5 for a responsive and modern UI.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Installation
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Prerequisites
 
-## Laravel Sponsors
+*   PHP 8.2 or higher
+*   Composer ([https://getcomposer.org/](https://getcomposer.org/))
+*   Node.js and npm ([https://nodejs.org/](https://nodejs.org/))
+*   MongoDB server ([https://www.mongodb.com/try/download/community](https://www.mongodb.com/try/download/community))
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Steps
 
-### Premium Partners
+1.  **Clone the Repository:**
+    ```bash
+    git clone https://github.com/your-username/TotallyNotInsta.git
+    cd TotallyNotInsta
+    ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+2.  **Install Dependencies:**
+    ```bash
+    composer install
+    npm install
+    ```
+
+3.  **Configure Environment Variables:**
+    *   Copy the example environment file:
+        ```bash
+        cp .env.example .env
+        ```
+    *   Update the `.env` file with your MongoDB connection string (`DB_CONNECTION=mongodb`, `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`) and other necessary configurations (like `APP_URL`). Example MongoDB connection setup:
+        ```dotenv
+        DB_CONNECTION=mongodb
+        DB_HOST=127.0.0.1
+        DB_PORT=27017
+        DB_DATABASE=totallynotinsta
+        DB_USERNAME=
+        DB_PASSWORD=
+        ```
+
+4.  **Generate Application Key:**
+    ```bash
+    php artisan key:generate
+    ```
+
+5.  **Run Migrations:**
+    *(Note: While MongoDB is schema-less, Laravel migrations can still be used to create collections or ensure indexes if needed, depending on the package setup).*
+    ```bash
+    php artisan migrate
+    ```
+
+6.  **Create a Symbolic Link for Storage:**
+    *   This links `public/storage` to `storage/app/public` so uploaded files are publicly accessible.
+    ```bash
+    php artisan storage:link
+    ```
+
+7.  **Start the Development Server:**
+    *   This runs the Laravel backend server (usually on `http://127.0.0.1:8000`).
+    ```bash
+    php artisan serve
+    ```
+
+8.  **Run the Frontend Development Server:**
+    *   Open a *new terminal window* in the project directory.
+    *   This compiles frontend assets using Vite and provides hot module replacement.
+    ```bash
+    npm run dev
+    ```
+
+You should now be able to access the application in your browser at the URL provided by `php artisan serve` (usually `http://127.0.0.1:8000`).
+
+## Project Structure
+
+```
+totallynotinsta/
+├── app/                    # Application logic (Models, Controllers, Middleware)
+├── bootstrap/              # Bootstrap files for Laravel
+├── config/                 # Configuration files
+├── database/               # Migrations, seeders, and factories
+├── public/                 # Publicly accessible files (e.g., index.php, assets)
+├── resources/              # Views, Blade templates, and frontend assets
+├── routes/                 # Application routes (web.php, api.php)
+├── storage/                # Logs, cached files, and user uploads
+├── tests/                  # PHPUnit tests
+├── vendor/                 # Composer dependencies
+├── .env                    # Environment configuration
+├── composer.json           # PHP dependencies
+├── package.json            # JavaScript dependencies
+├── vite.config.js          # Vite configuration
+└── README.md               # Project documentation
+```
+
+The project follows the standard Laravel directory structure. Key points related to the tech stack include:
+
+*   **Models:** Located in `app/Models/`, extending `Jenssegers\Mongodb\Eloquent\Model`.
+*   **Configuration:** Database connection details in `config/database.php` and `.env`.
+*   **Views:** Blade templates in `resources/views/`.
+*   **Assets:** Frontend assets (CSS, JS) managed by Vite, located in `resources/css/` and `resources/js/`.
+*   **Storage:** User uploads typically go into `storage/app/public/`.
+
+## Key Technical Details
+
+### Database
+
+*   MongoDB is used as the primary database.
+*   The `jenssegers/mongodb` package integrates MongoDB with Laravel's Eloquent ORM, allowing for familiar model interactions.
+*   Data is stored in MongoDB collections instead of traditional SQL tables.
+
+### File Storage
+
+*   Uploaded images are stored in the `storage/app/public` directory.
+*   A symbolic link is created using `php artisan storage:link` in the `public/storage` directory to make these files publicly accessible via web requests.
+
+### Authentication
+
+*   Laravel's built-in authentication system (Laravel Breeze, Jetstream, or UI) is used for user registration, login, and session management.
+*   Middleware (`auth`) ensures specified routes are protected and only accessible by authenticated users.
+
+### Frontend
+
+*   Blade templates (`resources/views`) are used for server-side rendering of HTML.
+*   Bootstrap 5 is used for styling and creating a responsive user interface.
+*   Vite (`vite.config.js`) is used for bundling and serving frontend assets (CSS, JavaScript) efficiently during development and for production builds.
+
+## Testing
+
+*   PHPUnit is used for writing and running automated tests (Unit, Feature, etc.).
+*   Test files are located in the `tests/` directory.
+*   Test environment variables can be configured specifically in the `phpunit.xml` file.
+*   Run tests using the Artisan command:
+    ```bash
+    php artisan test
+    ```
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Contributions are welcome! Please follow these steps:
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+1.  Fork the repository.
+2.  Create a new branch for your feature or bugfix (`git checkout -b feature/your-feature-name` or `bugfix/issue-description`).
+3.  Make your changes and commit them with clear messages.
+4.  Push your branch to your fork (`git push origin feature/your-feature-name`).
+5.  Submit a pull request to the main repository with a detailed description of your changes.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open-source and available under the [MIT License](LICENSE).

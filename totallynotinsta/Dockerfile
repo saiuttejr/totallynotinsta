@@ -1,4 +1,3 @@
-# Use official PHP image
 FROM php:8.2-fpm
 
 # Install system dependencies
@@ -13,19 +12,17 @@ RUN pecl install mongodb && docker-php-ext-enable mongodb
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Set working directory to your Laravel app
+# Set working directory
 WORKDIR /var/www/html
 
-# Copy app from subfolder
+# Copy app files
 COPY totallynotinsta /var/www/html
 
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Permissions
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+# Fix permissions
+RUN chown -R www-data:www-data storage bootstrap/cache
 
-# Set Laravel key and run migration
-CMD php artisan key:generate && \
-    php artisan migrate --seed && \
-    php artisan serve --host=0.0.0.0 --port=8080
+# Start Laravel
+CMD php artisan migrate --seed && php artisan serve --host=0.0.0.0 --port=8080

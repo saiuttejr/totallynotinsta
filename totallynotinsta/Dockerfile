@@ -21,11 +21,13 @@ COPY totallynotinsta /var/www/html
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Cache Laravel configs and routes for performance
-RUN php artisan config:cache && php artisan route:cache
-
 # Fix permissions
 RUN chown -R www-data:www-data storage bootstrap/cache
 
-# Start Laravel with production-safe flags
-CMD php artisan migrate --seed --force && php artisan serve --host=0.0.0.0 --port=8080
+# Laravel startup (run config cache at runtime, not build time)
+CMD php artisan config:clear && \
+    php artisan config:cache && \
+    php artisan route:clear && \
+    php artisan route:cache && \
+    php artisan migrate --seed --force && \
+    php artisan serve --host=0.0.0.0 --port=8080

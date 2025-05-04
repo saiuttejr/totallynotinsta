@@ -1,37 +1,31 @@
-# Use official PHP image with FPM
+# Use official PHP image
 FROM php:8.2-fpm
 
-# Set working directory
-WORKDIR /var/www/html
-
-# Install system dependencies & PHP extensions
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
-    git curl unzip zip libpng-dev libonig-dev libxml2-dev \
-    libzip-dev libcurl4-openssl-dev pkg-config libssl-dev libpq-dev \
-    && docker-php-ext-install pdo pdo_mysql zip \
-    && pecl install mongodb \
-    && docker-php-ext-enable mongodb \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+    git curl libzip-dev unzip libpng-dev libonig-dev libxml2-dev \
+    zip libcurl4-openssl-dev pkg-config libssl-dev libpq-dev \
+    && docker-php-ext-install pdo pdo_mysql zip
 
-# Install Composer globally
+# Install MongoDB extension
+RUN pecl install mongodb && docker-php-ext-enable mongodb
+
+# Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy Laravel app
-COPY . .
+# Set working directory to your Laravel app
+WORKDIR /var/www/html
 
-# Copy .env file
-COPY .env /var/www/html/.env
+# Copy app from subfolder
+COPY totallynotinsta /var/www/html
 
-# Set correct permissions
-RUN chown -R www-data:www-data storage bootstrap/cache
-
-# Install PHP dependencies (in production mode)
+# Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Expose port
-EXPOSE 8080
+# Permissions
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Run Laravel setup commands
+# Set Laravel key and run migration
 CMD php artisan key:generate && \
-    php artisan migrate --force --seed && \
+    php artisan migrate --seed && \
     php artisan serve --host=0.0.0.0 --port=8080

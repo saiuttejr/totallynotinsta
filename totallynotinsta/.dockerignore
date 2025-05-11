@@ -4,9 +4,11 @@ vendor
 
 # Ignore Laravel storage symlink
 public/storage
+storage/*.key
 
 # Ignore .env and other dev files (optional but safer)
 .env.*.local
+.env
 
 # Ignore git stuff
 .git

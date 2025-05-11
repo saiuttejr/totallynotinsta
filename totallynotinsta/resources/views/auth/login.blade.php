@@ -62,4 +62,8 @@
         </div>
     </div>
 </div>
+
+<footer class="text-center mt-5 mb-3 text-muted" style="font-size: 0.9em;">
+    Meet the Dev <a href="https://github.com/saiuttejr" target="_blank" class="text-decoration-none">Sai Uttej R</a>
+</footer>
 @endsection
